@@ -3,7 +3,6 @@
 /public/storage/transactiondocs/*  
 /storage/*.key
 /vendor
-/config/database.php
 .env
 .env.backup
 .phpunit.result.cache
