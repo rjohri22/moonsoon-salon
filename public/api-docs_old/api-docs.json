@@ -1,0 +1,1871 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Monsoon App",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/profile": {
+            "post": {
+                "tags": [
+                    "User Profile Edit"
+                ],
+                "operationId": "8ae5ed4702fb46151991184d4880d49a",
+                "parameters": [
+                    {
+                        "name": "first_name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "username",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "city",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "zipcode",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "contact",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders": {
+            "get": {
+                "tags": [
+                    "View all Placed Orders"
+                ],
+                "operationId": "35fc8866491ad6c6fbbe0ca3de593777",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Place Order"
+                ],
+                "operationId": "9efa8e8d8616e64c675025f88b4450ee",
+                "parameters": [
+                    {
+                        "name": "delivery_address_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "txn_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "txn_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "delivery_notes",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "String"
+                        }
+                    },
+                    {
+                        "name": "payment_mode",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}": {
+            "get": {
+                "tags": [
+                    "View Order By  Id"
+                ],
+                "operationId": "e26ac7870372f8eba2b6e8f0cfa56f83",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Update Payment Details By Id"
+                ],
+                "operationId": "5fe3dc5a86d5d7a99f75d8031ca5426e",
+                "parameters": [
+                    {
+                        "name": "txn_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "txn_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "payment_mode",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/services": {
+            "get": {
+                "tags": [
+                    "Salon App: Service Listing"
+                ],
+                "operationId": "9109d25b2d3a9c62689e81435596a3f7",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Service Store"
+                ],
+                "operationId": "87229c111378a18449d62e6aba01faa9",
+                "parameters": [
+                    {
+                        "name": "item_category_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "item_sub_category_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "service_time",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "how_to_use",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "benefits",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    },
+                    {
+                        "name": "discount_type",
+                        "in": "query",
+                        "description": "amount,percentage",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    },
+                    {
+                        "name": "discount_amount",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/app/customer/addresses": {
+            "get": {
+                "tags": [
+                    "Salon App: All Addresses"
+                ],
+                "operationId": "16791e0faee1333c21b08e71a96fb4ff",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Salon App: Store Address"
+                ],
+                "operationId": "48faedced1a88308f33dc7dfb7a64c91",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "street",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "landmark",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "city",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "zipcode",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "contact",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/app/customer/addresses/{id}": {
+            "get": {
+                "tags": [
+                    "Salon App: Show Specific Address"
+                ],
+                "operationId": "de4946bbe549152926923f77ea499de4",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Failure"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Salon App: Edit Address"
+                ],
+                "operationId": "c5cbc7446359f870d1d060799c80e2e7",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "street",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "landmark",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "city",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "zipcode",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "contact",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Salon App: Delete Address"
+                ],
+                "operationId": "6893fb612e29e6fe44702ad29ff36612",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Failure"
+                    }
+                }
+            }
+        },
+        "/api/app/customer/Useres": {
+            "get": {
+                "tags": [
+                    "Salon App: All Useres"
+                ],
+                "operationId": "02642bad8acc1714e61b752f0abd1606",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Salon App: Store User"
+                ],
+                "operationId": "d0c49cb360dd430afc228f8f10a9bc41",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "street",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "landmark",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "city",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "zipcode",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "contact",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/app/customer/Useres/{id}": {
+            "get": {
+                "tags": [
+                    "Salon App: Show Specific User"
+                ],
+                "operationId": "ff5c74eba66baa0c401b8942f371ae13",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Failure"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Salon App: Edit User"
+                ],
+                "operationId": "94ff1085017985531e9103a3edd55410",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "street",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "landmark",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "city",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "zipcode",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "contact",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Salon App: Delete User"
+                ],
+                "operationId": "861d946bb490a2a570c3b3578aa5b773",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Failure"
+                    }
+                }
+            }
+        },
+        "/api/carts": {
+            "get": {
+                "tags": [
+                    "View all Cart Item"
+                ],
+                "operationId": "88dd7baf3d2dd28140eff5df6fd124d8",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/carts/{id}": {
+            "put": {
+                "tags": [
+                    "Update Cart Item"
+                ],
+                "operationId": "105c8767b89d833bcb1b0087d05d81c0",
+                "parameters": [
+                    {
+                        "name": "operation",
+                        "in": "query",
+                        "description": "minus/plus",
+                        "required": true,
+                        "schema": {
+                            "type": "sting"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Delete Cart Item"
+                ],
+                "operationId": "005047bc32ddc5f07e299aeb83c7d69d",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/service-carts": {
+            "get": {
+                "tags": [
+                    "View all service Cart Item"
+                ],
+                "operationId": "ad4b434a23679c7a1b2fc37c24d7854a",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Store service carts"
+                ],
+                "operationId": "6a5978605a2732fa7c7adbd524d869e1",
+                "parameters": [
+                    {
+                        "name": "service_id",
+                        "in": "query",
+                        "description": "service_id =>1",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "service_date",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "name": "service_time",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "time"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/service-carts/{id}": {
+            "delete": {
+                "tags": [
+                    "Delete service Cart Item"
+                ],
+                "operationId": "0ef1e1e254ac8d802fc25b2071cc5bff",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/items": {
+            "get": {
+                "tags": [
+                    "Salon App: Item Listing"
+                ],
+                "operationId": "d8d61bf90bf8490074d46a739ef22f1e",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Item Store"
+                ],
+                "operationId": "af2ea8d9db5cc4dd398098188a86473c",
+                "parameters": [
+                    {
+                        "name": "brand_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "item_category_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "item_sub_category_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    },
+                    {
+                        "name": "product_category_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "how_to_use",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "benefits",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "qty",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    },
+                    {
+                        "name": "unit_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    },
+                    {
+                        "name": "discount_type",
+                        "in": "query",
+                        "description": "amount,percentage",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    },
+                    {
+                        "name": "discount_amount",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "numeric"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/items-categories-group": {
+            "get": {
+                "tags": [
+                    "Salon App: items-categories-group"
+                ],
+                "operationId": "6e367c282754fb7fd1508751b8e02bca",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/validate-coupan": {
+            "get": {
+                "tags": [
+                    "Salon App: Validate Coupan"
+                ],
+                "operationId": "e0ec04c2d0e22b306a9fb38887a22240",
+                "parameters": [
+                    {
+                        "name": "coupan_code",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/": {
+            "get": {
+                "tags": [
+                    "View all Placed Orders"
+                ],
+                "operationId": "490052c351b0911c7690eb69298a955b",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Place Order"
+                ],
+                "operationId": "c18d1622e4104ef70ecfab47aa0388ed",
+                "parameters": [
+                    {
+                        "name": "delivery_address_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "txn_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "txn_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "delivery_notes",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "String"
+                        }
+                    },
+                    {
+                        "name": "payment_mode",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/": {
+            "get": {
+                "tags": [
+                    "View Order By  Id"
+                ],
+                "operationId": "72a8f95a131eb34f73fb6fc298bdc8e6",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Update Payment Details By Id"
+                ],
+                "operationId": "a20e9377487e121deb9d3add52b99495",
+                "parameters": [
+                    {
+                        "name": "txn_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "txn_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "payment_mode",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/order/invoice/": {
+            "get": {
+                "tags": [
+                    "Print Order Invoice"
+                ],
+                "operationId": "33b05b18f4c05c6352bd96778413d0e5",
+                "parameters": [
+                    {
+                        "name": "order_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user-profile": {
+            "get": {
+                "tags": [
+                    "View User profile"
+                ],
+                "operationId": "ccc9a76d2b2c536758ee2825a8b1694b",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user-profile/create": {
+            "get": {
+                "tags": [
+                    "Get Update User Profile Data"
+                ],
+                "operationId": "a97c30ed52e75baa2b5a24dff1d12b2a",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/reviews": {
+            "post": {
+                "tags": [
+                    "Add Review"
+                ],
+                "operationId": "3caab3f4f4108287ea2624482744ddb3",
+                "parameters": [
+                    {
+                        "name": "order_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "item_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "rating",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "decimal"
+                        }
+                    },
+                    {
+                        "name": "comment",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "stirng"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/saloons": {
+            "get": {
+                "tags": [
+                    "Salon App: All Saloones"
+                ],
+                "operationId": "d3cc9ea3685e1effb99faa89693676e0",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Salon App: Store Saloon"
+                ],
+                "operationId": "f8d7e6f2362ef9c35b4195419372770d",
+                "parameters": [
+                    {
+                        "name": "shop_name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "whatsapp_no",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "mobile",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "city",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "zipcode",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    },
+                    {
+                        "name": "lat",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    },
+                    {
+                        "name": "lng",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    },
+                    {
+                        "name": "first_name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    },
+                    {
+                        "name": "last_name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/saloons/{id}": {
+            "get": {
+                "tags": [
+                    "Salon App: Show Specific Saloon"
+                ],
+                "operationId": "e2e481405a6c0de836f990c31a1d0994",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Failure"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Salon App: Edit Saloon"
+                ],
+                "operationId": "0a4fbb63c0cf06142e9152cd9e135dca",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "whatsapp_no",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "mobile",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "city",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "state",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "zipcode",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    },
+                    {
+                        "name": "lat",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    },
+                    {
+                        "name": "lng",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    },
+                    {
+                        "name": "owner_name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    },
+                    {
+                        "name": "user_name",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "digit"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Salon App: Delete Saloon"
+                ],
+                "operationId": "c465db493dfc0c506a3966bbe46bdaa7",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Failure"
+                    }
+                }
+            }
+        },
+        "/api/get-time-slot?date={date}": {
+            "get": {
+                "tags": [
+                    "Salon App: View Slot"
+                ],
+                "operationId": "ca0c736507f0994f9972839b14cc6e5e",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/service-orders/": {
+            "get": {
+                "tags": [
+                    "View all Placed ServiceOrders"
+                ],
+                "operationId": "c1254c4e6d051ecb269620d949056506",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Place Service Order"
+                ],
+                "operationId": "6f7ff07a3e852697f3f5698036c2cbd5",
+                "parameters": [
+                    {
+                        "name": "txn_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "txn_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "payment_mode",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "service_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "service_date",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "service_time",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/service-orders/{id}/": {
+            "get": {
+                "tags": [
+                    "View ServiceOrder By  Id"
+                ],
+                "operationId": "a0317157e50e434d9fb04d18e3b6dcab",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Service order Update Payment Details By Id"
+                ],
+                "operationId": "337d4682794135ca24d9d723d84a16a2",
+                "parameters": [
+                    {
+                        "name": "txn_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "txn_status",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    },
+                    {
+                        "name": "payment_mode",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/service-orders/invoice/": {
+            "get": {
+                "tags": [
+                    "Print service-orders Invoice"
+                ],
+                "operationId": "42926daa9fac6f40e24f61e5dd12150e",
+                "parameters": [
+                    {
+                        "name": "service_orders_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "Numeric"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/api/service-wishlists": {
+            "get": {
+                "tags": [
+                    "get service Wish list"
+                ],
+                "operationId": "7208ce9a3aecc7da2a148f54df2d4957",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Store service Wish list"
+                ],
+                "operationId": "665f84911af82d6899feafeedc0236be",
+                "parameters": [
+                    {
+                        "name": "service_id",
+                        "in": "query",
+                        "description": "service_id =>1",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
