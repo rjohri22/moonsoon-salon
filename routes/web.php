@@ -55,6 +55,11 @@ Route::get("db-refresh", function () {
     return redirect('/');
 });
 
+Route::get("db-migrate", function () {
+    $exitcode = Artisan::call('migrate'); 
+    return dd('migration done');
+});
+
 
 
 
