@@ -3,7 +3,7 @@
 
 <head>
     <title>Monsoon App</title>
-    <link rel="icon" type="image/png" href="{{ asset('admin_asset/images/m.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('public/admin_asset/images/m.png') }}">
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -202,6 +202,22 @@
                         </span>
                         <span class="sidebar-nav-name">
                             Items
+                        </span>
+                        <span class="sidebar-nav-end">
+                            <span class="badge badge-info"></span>
+                        </span>
+                    </a>
+                </li>
+
+                
+                <li class="sidebar-nav-item">
+                    <a href="{{ url('/admin/item-videos') }}"
+                        class="sidebar-nav-link @if (Request::path() == 'admin/item-videos') {{ 'active' }} @endif">
+                        <span class="sidebar-nav-icon">
+                            <i class="fa fa-th-list" aria-hidden="true"></i>
+                        </span>
+                        <span class="sidebar-nav-name">
+                            Item Videos
                         </span>
                         <span class="sidebar-nav-end">
                             <span class="badge badge-info"></span>

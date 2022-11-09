@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ShopSetting\ShopSettingController;
 use App\Http\Controllers\Admin\Branch\BranchApiController;
 use App\Http\Controllers\Admin\Package\PackageApiController;
 use App\Http\Resources\Admin\Offer\OfferApiCollection;
+use App\Http\Controllers\Admin\ItemVideosController;
 use Illuminate\Support\Facades\Hash;
 
 /*
@@ -31,7 +32,7 @@ use Illuminate\Support\Facades\Hash;
 |
 */
 
-Route::get('/', function () { 
+Route::get('/login', function () { 
     return view('auth/login');
 });
 
@@ -217,6 +218,17 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'verified'])->group(function
         'edit' => 'admin-service-orders.edit',
         'destroy' => 'admin-service-orders.destroy',
     ]);
+ 
 
     Route::get('offer-prefrence/{id?}',[OfferApiController::class,'offerPrefrence'])->name('offer-prefrence');
+
+    Route::get("item-videos",[ItemVideosController::class,'itemVideos']);
+    Route::post("item-video-addupdate",[ItemVideosController::class,'addUpdateItemVideo']);
+
+    Route::delete("item-video-delete/{deleteid}",[ItemVideosController::class,'deleteItemVideo']);
+    Route::get("item-video-detail/{videoid}",[ItemVideosController::class,'getItemVideoDetail']);
+    
+    Route::post("item-videos",[ItemVideosController::class,'itemVideos']);
+
+
 });

@@ -11,12 +11,15 @@ use App\Models\Item;
 use App\Models\Order;
 use App\Models\Service;
 use App\Models\ServiceOrder;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends AppBaseController
 {
     public function dashboard(Request $request)
     {
-        //
+ 
+
         $brand  = Brand::getActive()->count();
         $item   = Item::getActive()->count();
         $service   = Service::getActive()->count();
