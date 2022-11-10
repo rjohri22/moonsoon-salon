@@ -30,6 +30,7 @@ use App\Http\Controllers\Api\Customer\Branch\BranchApiController;
 use App\Models\Gender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Customer\Item\ItemVideoApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -119,6 +120,15 @@ Route::middleware('auth:api')->group(function () {
         'edit' => 'app-brand.edit',
         'destroy' => 'app-brand.destroy',
     ]);
+ 
+    Route::get("item-videos/{item_id}",[ItemVideoApiController::class,'itemVideos']);
+
+    Route::get("item-videos-by-category/{item_id}/{video_category}",[ItemVideoApiController::class,'itemVideosByCategory']);
+ 
+    Route::post("item-video-add-comment/{item_video_id}",[ItemVideoApiController::class,'addCommentToItemVideo']);
+
+    Route::get("item-video-get-comments/{item_video_id}",[ItemVideoApiController::class,'getVideoDetailWithComments']);
+    
 });
 
 
