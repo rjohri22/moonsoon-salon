@@ -36,6 +36,11 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
+Route::get('passport-keys', function () {
+    $exitcode = Artisan::call('passport:keys');
+    dd("passport keys generated");
+});
+
 /* Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard'); */
