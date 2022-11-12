@@ -33,12 +33,12 @@ class ItemVideosController extends Controller
             $query->where('item_videos.item_id',$search_item);
 
         })
-           ->select( 'item_videos.id','items.name as item_name','item_videos.video_category','item_videos.video_file_name')->get();
+           ->select( 'item_videos.id','items.name as item_name','item_videos.video_category','item_videos.title','item_videos.video_file_name')->get();
    
 
        }
        else{
-        $itemvideos=ItemVideo::join('items','item_videos.item_id','=','items.id')->select( 'item_videos.id','items.name as item_name','item_videos.video_category','item_videos.video_file_name')->get();
+        $itemvideos=ItemVideo::join('items','item_videos.item_id','=','items.id')->select( 'item_videos.id','items.name as item_name','item_videos.title','item_videos.video_category','item_videos.video_file_name')->get();
    
        }
  
@@ -51,15 +51,22 @@ class ItemVideosController extends Controller
  
         $item_id=$request->item_id;
         $video_category=$request->video_category;
- 
-
+        $title=$request->title;
+        $description=$request->description;
+  
          $id=$request->id;
  
          if(!empty($id)){
-            $previous_uploaded_file=  ItemVideo::where('id',$id)->value('video_file_name');
+
+            $previous_uploaded_detail= ItemVideo::where('id',$id)->select('video_file_name','thumbnail_image')->first();
+
+
+            $previous_uploaded_video= $previous_uploaded_detail->video_file_name;
+            $previous_uploaded_image= $previous_uploaded_detail->thumbnail_image;
          }
          else{
-            $previous_uploaded_file="";
+            $previous_uploaded_video="";
+            $previous_uploaded_image="";
          }
 
 
@@ -73,26 +80,42 @@ class ItemVideosController extends Controller
                     $uploaded_video=$request->file('upload_video');
                 
                 $destinationPath = public_path('itemVideos'); // upload path
-                $uploaded_file = time() . "." .  $uploaded_video->getClientOriginalExtension();
-                $uploaded_video->move($destinationPath, $uploaded_file);
+                $uploaded_video_file = time() . "." .  $uploaded_video->getClientOriginalExtension();
+                $uploaded_video->move($destinationPath, $uploaded_video_file);
             
             }
             else{
-                $uploaded_file=$previous_uploaded_file;
+                $uploaded_video_file=$previous_uploaded_video;
             }
- 
 
-            if(empty($id)){
 
+
+            if($request->hasFile('upload_image')   ){
+
+                $request->validate([
+                    'upload_image'  => 'mimes:jpeg,png,jpg,gif,svg|max:20000', 
+                    ]);
+
+                    $uploaded_image=$request->file('upload_image');
                 
-
-                ItemVideo::create(['item_id'=> $item_id,'video_category'=> $video_category,'video_file_name'=>$uploaded_file]);
+                $destinationPath = public_path('itemVideoThumbnails'); // upload path
+                $uploaded_image_file = time() . "." .  $uploaded_image->getClientOriginalExtension();
+                $uploaded_image->move($destinationPath, $uploaded_image_file);
+            
+            }
+            else{
+                $uploaded_image_file=$previous_uploaded_image;
+            }
+  
+            if(empty($id)){
+ 
+                ItemVideo::create([ 'title'=>$title,'description'=>$description ,'item_id'=> $item_id,'video_category'=> $video_category,'video_file_name'=>$uploaded_video_file, 'thumbnail_image'=>    $uploaded_image_file]);
                 $message="Item Video Added successfully";
  
             }
             else{ 
                  
-                ItemVideo::where('id',$id)->update(['item_id'=> $item_id,'video_category'=> $video_category,'video_file_name'=>$uploaded_file]);
+                ItemVideo::where('id',$id)->update([ 'title'=>$title,'description'=>$description ,'item_id'=> $item_id, 'thumbnail_image'=>    $uploaded_image_file,'video_category'=> $video_category,'video_file_name'=>$uploaded_video_file]);
                 $message="Item Video Update successfully";
             }
             
@@ -119,7 +142,9 @@ class ItemVideosController extends Controller
         $video_detail= ItemVideo::where('id',$video_id)->first();
 
         $video_url=asset('itemVideos/'.  $video_detail->video_file_name);
+        $image_url=asset('itemVideoThumbnails/'.  $video_detail->thumbnail_image);
         $video_detail->video_file_name=   $video_url;
+        $video_detail->thumbnail_image=    $image_url;
 
         return response()->json(['item_video_detail'=>$video_detail]);
  
