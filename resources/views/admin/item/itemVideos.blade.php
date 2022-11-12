@@ -74,8 +74,10 @@
                                                     <span class="custom-control-indicator"></span>
                                                 </label>
                                             </th> -->
-                                            <th scope="col">Item Name</th>
+                                            <th scope="col">Item Name</th> 
+                                            <th scope="col">Video Title</th>
                                             <th scope="col">Video Category</th>
+                                            <th scope="col">Video Thumbnail</th>
                                             <th scope="col">Item Video</th>
                                            
                                             <th scope="col">Actions</th>
@@ -84,16 +86,21 @@
                                     <tbody>
 
                                     @if(count($itemvideos)==0)
-                                    <tr><td colspan="4" class='text-center'>No Videos</td></tr>
+                                    <tr><td colspan="5" class='text-center'>No Videos</td></tr>
                                     @endif
 
                                     @foreach ($itemvideos as $itemvideo)
                                         <tr>
                                             <td>{{$itemvideo->item_name}}</td>
+                                            <td>{{$itemvideo->title}}</td>
                                             <td>{{$itemvideo->video_category}}</td>
+                                            <td> 
+                                            <a target="_blank"  href="{{asset('itemVideoThumbnails/'.$itemvideo->thumbnail_image)}}">Image Uploaded</a>
+                                            </td>
                                              <td> 
                                             <a target="_blank"  href="{{asset('itemVideos/'.$itemvideo->video_file_name)}}">Video Uploaded</a>
                                             </td>
+
 
                                             <td>
                                                     <a href="javascript:void(0)" class="btn btn-sm btn-primary" onclick="editItemVideo({{$itemvideo->id}})">Edit</a>
@@ -144,11 +151,26 @@
                                      
                                 </div>
                             </div>
+                            
                             <input type='hidden' name="id"  id="edit_video_id" value="" />
+
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label for="item_category_id">Title<span class="required_symbol">*</span></label>
+                                    <input type="text"  name="title" class="form-control"  id='txt_title'  required  />
+                                </div>
+                            </div>
+
+
+                           
+                        </div>
+
+                        <div class="row">
+
+                        <div class="col-md-6">
+                                <div class="form-group">
                                     <label for="item_category_id">Video Category <span class="required_symbol">*</span></label>
-                                    <select class="form-control" name="video_category" id="video_category_id">
+                                    <select class="form-control" name="video_category" id="video_category_id"   required >
                                         <option value="">--SELECT--</option>
                                             <option value="Upcoming">Upcoming</option>
                                             <option value="Live">Live</option>
@@ -156,18 +178,41 @@
                                     </select> 
                                 </div>
                             </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="item_sub_category_id">Description <span
+                                            class="required_symbol">*</span></label> 
+                                    <textarea     class="form-control" name="description"   id='txt_description' required ></textarea>
+                                </div>
+                            </div>
+                      
+                          
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+
+                        
+                        <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="item_sub_category_id">Upload Image <span
+                                            class="required_symbol">*</span></label>
+                                    <input type="file"  name="upload_image"  id="upload_image_control"    class="form-control" />
+                                    <a   class=" d-none" target="_blank"  href="" id="link_edit_image_uploaded"><span>Uploaded Image</span></a>
+                                </div>
+                            </div>
+
+
+
+                        <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="item_sub_category_id">Upload Video <span
                                             class="required_symbol">*</span></label>
-                                    <input type="file"  name="upload_video"     class="form-control" />
+                                    <input type="file"  name="upload_video"   id="upload_video_control"       class="form-control" />
                                     <a   class=" d-none" target="_blank"  href="" id="link_edit_video_uploaded"><span>Uploaded Video</span></a>
                                 </div>
                             </div>
-                          
+
                         </div>
     
                       
@@ -184,10 +229,25 @@
         function addItemVideo(){
 
             $("#itemVideoModal").modal("show");
-
+            $("#upload_video_control").prop("required",true);
+            $("#upload_image_control").prop("required",true);
+            resetItemModalForm();
         }
 
  
+
+        function resetItemModalForm(){
+            $("#select_item_id").val(""); 
+                $("#video_category_id").val("");
+                $("#txt_title").val("");
+                $("#txt_description").val("");
+                $("#link_edit_video_uploaded").removeClass('d-block'); 
+                $("#link_edit_video_uploaded").addClass('d-none'); 
+            
+                $("#link_edit_image_uploaded").removeClass('d-block'); 
+                $("#link_edit_image_uploaded").addClass('d-none'); 
+                $("#edit_video_id").val("");
+        }
 
         function editItemVideo(videoid){ 
 
@@ -196,13 +256,22 @@
 
             $.get("{{url('/')}}"+"/admin/item-video-detail/"+videoid,function(data,status){
 
+                $("#upload_video_control").prop("required",false);
+               $("#upload_image_control").prop("required",false);
+
                 var result=JSON.parse(JSON.stringify(data))['item_video_detail'];
   
                 $("#select_item_id").val(result['item_id']); 
                 $("#video_category_id").val(result['video_category']);
+                $("#txt_title").val(result['title']);
+                $("#txt_description").val(result['description']);
                 $("#link_edit_video_uploaded").removeClass('d-none');
                 $("#link_edit_video_uploaded").addClass('d-block'); 
                 $("#link_edit_video_uploaded").attr("href",result['video_file_name']);
+                
+                $("#link_edit_image_uploaded").removeClass('d-none');
+                $("#link_edit_image_uploaded").addClass('d-block');  
+                $("#link_edit_image_uploaded").attr("href",result['thumbnail_image']);
                 $("#edit_video_id").val(result['id']);
                 
                 $("#submitValue").html("Update Item Video");

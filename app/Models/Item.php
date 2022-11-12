@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\UploaderTrait;
 
+
 class Item extends Model
 {
     use HasFactory, SoftDeletes, UploaderTrait;
@@ -83,4 +84,12 @@ class Item extends Model
             }
         });
     }
+
+
+    
+    public function videos()
+    {
+        return $this->hasMany(ItemVideo::class, 'item_id');
+    }
+    
 }

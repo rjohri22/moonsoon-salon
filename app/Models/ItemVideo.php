@@ -11,6 +11,11 @@ class ItemVideo extends Model
 
     protected $table="item_videos";
 
-    protected $fillable=['item_id','video_category','video_file_name'];
+    protected $fillable=['item_id','video_category','video_file_name','title','description','thumbnail_image'];
+
+    
+    public function comments(){
+        return $this->hasMany('App\Models\ItemVideoComment');
+    }
     
 }

@@ -121,7 +121,9 @@ Route::middleware('auth:api')->group(function () {
         'destroy' => 'app-brand.destroy',
     ]);
  
-    Route::get("item-videos/{item_id}",[ItemVideoApiController::class,'itemVideos']);
+    Route::get("item-videos",[ItemVideoApiController::class,'itemVideos']);
+
+    Route::post("item-video-details",[ItemVideoApiController::class,'getSingleItemVideos']);
 
     Route::get("item-videos-by-category/{item_id}/{video_category}",[ItemVideoApiController::class,'itemVideosByCategory']);
  

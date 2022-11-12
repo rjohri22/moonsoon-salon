@@ -7,20 +7,33 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Models\ItemVideo;
 use App\Models\ItemVideoComment;
+use DB;
 
 class ItemVideoApiController  extends AppBaseController
 {
     
 
-    public function itemVideos($item_id){
+    public function itemVideos($item_id=null){
 
-       $live_videos=  ItemVideo::where('video_category','Live')->where('item_id',$item_id)->orderby('id','desc')->pluck('video_file_name') ;
+        $video_path=asset('itemVideos/');;
+
+        $thumbnail_path =asset('itemVideoThumbnails/');
+
+       $live_videos=  ItemVideo::join('items','item_videos.item_id','=','items.id')->where('video_category','Live')->when(!empty($item_id),function($query)use($item_id){
+        $query->where('item_videos.item_id',$item_id);
+       })->orderby('id','desc')->select( 'items.name as item_name','item_videos.title','item_videos.id','item_videos.description',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "))->get() ;
        
-       $past_videos=  ItemVideo::where('video_category','Past')->where('item_id',$item_id)->orderby('id','desc')->pluck('video_file_name') ;
+       $past_videos= ItemVideo::join('items','item_videos.item_id','=','items.id')->where('video_category','Past')->when(!empty($item_id),function($query)use($item_id){
+        $query->where('item_videos.item_id',$item_id);
+       })->orderby('id','desc')->select( 'items.name as item_name','item_videos.title','item_videos.id','item_videos.description',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "))->get() ;
 
-       $upcoming_videos=  ItemVideo::where('video_category','Upcoming')->where('item_id',$item_id)->orderby('id','desc')->pluck('video_file_name') ;
 
-       return $this->sendResponse(['live'=> $live_videos,'past'=> $past_videos,'upcoming'=>$upcoming_videos,'base_url'=>asset('itemVideos')],'');
+       $upcoming_videos= ItemVideo::join('items','item_videos.item_id','=','items.id')->where('video_category','Upcoming')->when(!empty($item_id),function($query)use($item_id){
+        $query->where('item_videos.item_id',$item_id);
+       })->orderby('id','desc')->select( 'items.name as item_name','item_videos.title','item_videos.id','item_videos.description',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "))->get() ;
+
+
+       return $this->sendResponse(['live'=> $live_videos,'past'=> $past_videos,'upcoming'=>$upcoming_videos],'');
  
     }
 
@@ -44,12 +57,7 @@ class ItemVideoApiController  extends AppBaseController
         }
 
         $user_video_comment_exists= ItemVideoComment::where(['item_video_id'=> $item_video_id,'user_id'=> $user_id])->exists();
-
-
-        if($user_video_comment_exists==true){
-            return response()->json(['status'=>'user cannot comment more than one']);
-        }
-
+ 
         ItemVideoComment::create(['item_video_id'=> $item_video_id,'user_id'=> $user_id,'comment'=>   $comment]);
 
         return $this->sendResponse([],'Comment Added Successfully');
@@ -62,5 +70,45 @@ class ItemVideoApiController  extends AppBaseController
          $item_id= ItemVideo::where('id', $item_video_id)->value('item_id');
            $comments=ItemVideoComment::where('item_video_id',$item_video_id)->select('user_id','comment','created_at')->get();
            return $this->sendResponse(['item_id'=>$item_id,'comments'=>$comments],'' );
+    }
+
+
+    public function getSingleItemVideos(Request $request){
+
+        $item_id= $request->item_id;
+        
+        $video_path=asset('itemVideos/');;
+
+       $thumbnail_path =asset('itemVideoThumbnails/');;
+
+         
+        $upcoming= ItemVideo::join('items','items.id','=','item_videos.item_id')->where('video_category','Upcoming')->where('items.id',$item_id)->select('items.name as item_name','item_videos.id','item_videos.item_id','item_videos.video_category',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "),'title','item_videos.description')->get();
+
+        $live= ItemVideo::join('items','items.id','=','item_videos.item_id')->where('video_category','Live')->where('items.id',$item_id)->select('items.name as item_name','item_videos.id','item_videos.item_id','item_videos.video_category',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "),'title','item_videos.description')->get();
+
+        $past= ItemVideo::join('items','items.id','=','item_videos.item_id')->where('video_category','Past')->where('items.id',$item_id)->select('items.name as item_name','item_videos.id','item_videos.item_id','item_videos.video_category',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "),'title','item_videos.description')->get();
+
+        $upcoming=$this->addComments(  $upcoming);
+        $live= $this->addComments( $live);
+        $past= $this->addComments($past);
+
+        return response()->json(['upcoming'=>  $upcoming,'live'=>$live,'past'=>$past]);
+ 
+    }
+
+    public function addComments($videos){
+
+        $index=0;
+        foreach($videos as $video){
+
+           $comments= ItemVideoComment::join('users','item_video_comments.user_id','=','users.id')->orderby('item_video_comments.id','asc')->where('item_video_id',$video->id)->select(DB::raw("CONCAT(first_name,' ',last_name) as name"),'comment',DB::raw("DATE_FORMAT(item_video_comments.created_at , '%d/%m/%Y') as date "))->get();
+           
+           $videos[$index]->comments= $comments;
+           $index++;
+
+        }
+ 
+        return $videos;
+
     }
 }
