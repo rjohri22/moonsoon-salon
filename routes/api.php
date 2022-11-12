@@ -59,6 +59,17 @@ Route::resource('coupans', OfferApiController::class);
 Route::resource('offers', OfferApiController::class);
 Route::post('/social-login', [UserLoginApiController::class, 'socialLogin']);
 //add this middleware to ensure that every request is authenticated
+
+Route::get("item-videos",[ItemVideoApiController::class,'itemVideos']);
+
+Route::post("item-video-details",[ItemVideoApiController::class,'getSingleItemVideos']);
+
+Route::get("item-videos-by-category/{item_id}/{video_category}",[ItemVideoApiController::class,'itemVideosByCategory']);
+
+Route::post("item-video-add-comment/{item_video_id}",[ItemVideoApiController::class,'addCommentToItemVideo']);
+
+Route::get("item-video-get-comments/{item_video_id}",[ItemVideoApiController::class,'getVideoDetailWithComments']);
+
 Route::middleware('auth:api')->group(function () {
     Route::get('users', [UserLoginApiController::class, 'userDetails']);
     Route::resource('user-profile', UserDetaiApiController::class);
@@ -121,16 +132,8 @@ Route::middleware('auth:api')->group(function () {
         'destroy' => 'app-brand.destroy',
     ]);
  
-    Route::get("item-videos",[ItemVideoApiController::class,'itemVideos']);
-
-    Route::post("item-video-details",[ItemVideoApiController::class,'getSingleItemVideos']);
-
-    Route::get("item-videos-by-category/{item_id}/{video_category}",[ItemVideoApiController::class,'itemVideosByCategory']);
- 
-    Route::post("item-video-add-comment/{item_video_id}",[ItemVideoApiController::class,'addCommentToItemVideo']);
-
-    Route::get("item-video-get-comments/{item_video_id}",[ItemVideoApiController::class,'getVideoDetailWithComments']);
     
 });
+
 
 
