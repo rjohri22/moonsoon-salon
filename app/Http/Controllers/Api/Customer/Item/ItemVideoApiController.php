@@ -48,8 +48,8 @@ class ItemVideoApiController  extends AppBaseController
     public function addCommentToItemVideo(Request $request,$item_video_id){
  
 
-        $user_id=\Auth::user()->id;
-
+        // $user_id=\Auth::user()->id;
+        $user_id=$request->user_id;
         $comment=$request->comment;
 
         if(empty( $comment)){
