@@ -73,26 +73,31 @@ class ItemVideoApiController  extends AppBaseController
     }
 
 
-    public function getSingleItemVideos(Request $request){
+    public function getSingleItemVideoDetail(Request $request){
 
-        $item_id= $request->item_id;
+        $video_id= $request->video_id;
         
         $video_path=asset('itemVideos/');;
 
        $thumbnail_path =asset('itemVideoThumbnails/');;
 
-         
-        $upcoming= ItemVideo::join('items','items.id','=','item_videos.item_id')->where('video_category','Upcoming')->where('items.id',$item_id)->select('items.name as item_name','item_videos.id','item_videos.item_id','item_videos.video_category',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "),'title','item_videos.description')->get();
+       $videodetail= ItemVideo::join('items','items.id','=','item_videos.item_id')->where('item_videos.id',$video_id)->select('items.name as item_name','item_videos.id','item_videos.item_id','item_videos.video_category',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "),'title','item_videos.description')->get();
+ 
+       $videodetail=$this->addComments(  $videodetail);
+        // $upcoming= ItemVideo::join('items','items.id','=','item_videos.item_id')->where('video_category','Upcoming')->where('items.id',$item_id)->select('items.name as item_name','item_videos.id','item_videos.item_id','item_videos.video_category',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "),'title','item_videos.description')->get();
 
-        $live= ItemVideo::join('items','items.id','=','item_videos.item_id')->where('video_category','Live')->where('items.id',$item_id)->select('items.name as item_name','item_videos.id','item_videos.item_id','item_videos.video_category',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "),'title','item_videos.description')->get();
+        // $live= ItemVideo::join('items','items.id','=','item_videos.item_id')->where('video_category','Live')->where('items.id',$item_id)->select('items.name as item_name','item_videos.id','item_videos.item_id','item_videos.video_category',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "),'title','item_videos.description')->get();
 
-        $past= ItemVideo::join('items','items.id','=','item_videos.item_id')->where('video_category','Past')->where('items.id',$item_id)->select('items.name as item_name','item_videos.id','item_videos.item_id','item_videos.video_category',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "),'title','item_videos.description')->get();
+        // $past= ItemVideo::join('items','items.id','=','item_videos.item_id')->where('video_category','Past')->where('items.id',$item_id)->select('items.name as item_name','item_videos.id','item_videos.item_id','item_videos.video_category',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "),'title','item_videos.description')->get();
 
-        $upcoming=$this->addComments(  $upcoming);
-        $live= $this->addComments( $live);
-        $past= $this->addComments($past);
+        // $upcoming=$this->addComments(  $upcoming);
+        // $live= $this->addComments( $live);
+        // $past= $this->addComments($past);
 
-        return response()->json(['upcoming'=>  $upcoming,'live'=>$live,'past'=>$past]);
+        // return response()->json(['upcoming'=>  $upcoming,'live'=>$live,'past'=>$past]);
+
+        
+        return $this->sendResponse(['data'=>$videodetail],'');
  
     }
 
@@ -101,7 +106,7 @@ class ItemVideoApiController  extends AppBaseController
         $index=0;
         foreach($videos as $video){
 
-           $comments= ItemVideoComment::join('users','item_video_comments.user_id','=','users.id')->orderby('item_video_comments.id','asc')->where('item_video_id',$video->id)->select(DB::raw("CONCAT(first_name,' ',last_name) as name"),'comment',DB::raw("DATE_FORMAT(item_video_comments.created_at , '%d/%m/%Y') as date "))->get();
+           $comments= ItemVideoComment::join('users','item_video_comments.user_id','=','users.id')->orderby('item_video_comments.id','asc')->where('item_video_id',$video->id)->select(DB::raw("CONCAT(first_name,' ',last_name) as name"),'comment as message',DB::raw("DATE_FORMAT(item_video_comments.created_at , '%d/%m/%Y %h:%i %p') as timeDate "))->get();
            
            $videos[$index]->comments= $comments;
            $index++;

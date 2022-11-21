@@ -62,7 +62,7 @@ Route::post('/social-login', [UserLoginApiController::class, 'socialLogin']);
 
 Route::get("item-videos",[ItemVideoApiController::class,'itemVideos']);
 
-Route::post("item-video-details",[ItemVideoApiController::class,'getSingleItemVideos']);
+Route::post("item-video-details",[ItemVideoApiController::class,'getSingleItemVideoDetail']);
 
 Route::get("item-videos-by-category/{item_id}/{video_category}",[ItemVideoApiController::class,'itemVideosByCategory']);
 
