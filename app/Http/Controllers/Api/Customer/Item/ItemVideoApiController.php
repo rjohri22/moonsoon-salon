@@ -58,7 +58,7 @@ class ItemVideoApiController  extends AppBaseController
 
         $user_video_comment_exists= ItemVideoComment::where(['item_video_id'=> $item_video_id,'user_id'=> $user_id])->exists();
  
-        ItemVideoComment::create(['item_video_id'=> $item_video_id,'user_id'=> $user_id,'comment'=>   $comment]);
+        ItemVideoComment::create(['item_video_id'=> $item_video_id,'user_id'=> $user_id,'comment'=>   $comment,'created_at'=>date("Y-m-d H:i:s",strtotime('now')) ,'updated_at'=>date("Y-m-d H:i:s",strtotime('now'))]);
 
         return $this->sendResponse([],'Comment Added Successfully');
  

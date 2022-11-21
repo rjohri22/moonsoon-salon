@@ -11,6 +11,6 @@ class ItemVideoComment extends Model
 
     protected $table="item_video_comments";
 
-    protected $fillable=['item_video_id','user_id','comment'];
+    protected $fillable=['item_video_id','user_id','comment','created_at','updated_at'];
 
 }
