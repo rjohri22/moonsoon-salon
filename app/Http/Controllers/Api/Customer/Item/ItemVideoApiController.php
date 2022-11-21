@@ -21,16 +21,16 @@ class ItemVideoApiController  extends AppBaseController
 
        $live_videos=  ItemVideo::join('items','item_videos.item_id','=','items.id')->where('video_category','Live')->when(!empty($item_id),function($query)use($item_id){
         $query->where('item_videos.item_id',$item_id);
-       })->orderby('id','desc')->select( 'items.name as item_name','item_videos.title','item_videos.id','item_videos.description',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "))->get() ;
+       })->orderby('id','desc')->select( 'items.id as item_id' ,'items.name as item_name','item_videos.title','item_videos.id','item_videos.description',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "))->get() ;
        
        $past_videos= ItemVideo::join('items','item_videos.item_id','=','items.id')->where('video_category','Past')->when(!empty($item_id),function($query)use($item_id){
         $query->where('item_videos.item_id',$item_id);
-       })->orderby('id','desc')->select( 'items.name as item_name','item_videos.title','item_videos.id','item_videos.description',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "))->get() ;
+       })->orderby('id','desc')->select('items.id as item_id' , 'items.name as item_name','item_videos.title','item_videos.id','item_videos.description',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "))->get() ;
 
 
        $upcoming_videos= ItemVideo::join('items','item_videos.item_id','=','items.id')->where('video_category','Upcoming')->when(!empty($item_id),function($query)use($item_id){
         $query->where('item_videos.item_id',$item_id);
-       })->orderby('id','desc')->select( 'items.name as item_name','item_videos.title','item_videos.id','item_videos.description',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "))->get() ;
+       })->orderby('id','desc')->select( 'items.id as item_id' ,'items.name as item_name','item_videos.title','item_videos.id','item_videos.description',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "))->get() ;
 
 
        return $this->sendResponse(['live'=> $live_videos,'past'=> $past_videos,'upcoming'=>$upcoming_videos],'');
