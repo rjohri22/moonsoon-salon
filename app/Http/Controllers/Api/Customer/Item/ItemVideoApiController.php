@@ -81,7 +81,7 @@ class ItemVideoApiController  extends AppBaseController
 
        $thumbnail_path =asset('itemVideoThumbnails/');;
 
-       $videodetail= ItemVideo::join('items','items.id','=','item_videos.item_id')->where('item_videos.id',$video_id)->select('items.name as item_name','item_videos.id','item_videos.item_id','item_videos.video_category',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "),'title','item_videos.description')->get();
+       $videodetail= ItemVideo::join('items','items.id','=','item_videos.item_id')->where('item_videos.id',$video_id)->select('items.name as item_name','item_videos.id','item_videos.item_id','item_videos.video_category',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "),'title','item_videos.description')->first();
  
        $videodetail=$this->addComments(  $videodetail);
         // $upcoming= ItemVideo::join('items','items.id','=','item_videos.item_id')->where('video_category','Upcoming')->where('items.id',$item_id)->select('items.name as item_name','item_videos.id','item_videos.item_id','item_videos.video_category',DB::raw(" CONCAT('". $video_path."' ,'/',item_videos.video_file_name)  as video_url "),DB::raw(" CONCAT('". $thumbnail_path."' ,'/',item_videos.thumbnail_image)  as image_url "),'title','item_videos.description')->get();
@@ -101,19 +101,12 @@ class ItemVideoApiController  extends AppBaseController
  
     }
 
-    public function addComments($videos){
+    public function addComments($video){
 
-        $index=0;
-        foreach($videos as $video){
-
-           $comments= ItemVideoComment::join('users','item_video_comments.user_id','=','users.id')->orderby('item_video_comments.id','asc')->where('item_video_id',$video->id)->select(DB::raw("CONCAT(first_name,' ',last_name) as name"),'comment as message',DB::raw("DATE_FORMAT(item_video_comments.created_at , '%d/%m/%Y %h:%i %p') as timeDate "))->get();
-           
-           $videos[$index]->comments= $comments;
-           $index++;
-
-        }
+        $comments= ItemVideoComment::join('users','item_video_comments.user_id','=','users.id')->orderby('item_video_comments.id','asc')->where('item_video_id',$video->id)->select(DB::raw("CONCAT(first_name,' ',last_name) as name"),'comment as message',DB::raw("DATE_FORMAT(item_video_comments.created_at , '%d/%m/%Y %h:%i %p') as timeDate "))->get();
+        $video->comments= $comments;
  
-        return $videos;
+        return   $video;
 
     }
 }
