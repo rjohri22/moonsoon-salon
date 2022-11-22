@@ -97,7 +97,7 @@ class ItemVideoApiController  extends AppBaseController
         // return response()->json(['upcoming'=>  $upcoming,'live'=>$live,'past'=>$past]);
 
         
-        return $this->sendResponse(['data'=>$videodetail],'');
+        return $this->sendResponse( $videodetail,'');
  
     }
 
