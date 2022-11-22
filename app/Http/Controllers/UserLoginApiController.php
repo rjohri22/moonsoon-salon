@@ -60,7 +60,7 @@ class UserLoginApiController extends AppBaseController
         ]);
         $user = User::where('mobile', $request->mobile)->first();
         if (!empty($user)) {
-            return $this->sendResponse(['otp' => '0000'], 'OTP sent successfully');
+            return $this->sendResponse(['otp' => '0000','user_id'=>  $user->id], 'OTP sent successfully');
         }
         return  $this->sendError('User Not Found');
 
