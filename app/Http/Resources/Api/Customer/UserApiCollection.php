@@ -20,6 +20,7 @@ class UserApiCollection extends JsonResource
         $qrcode =  url('public/storage/barcodes/' . $this->id . 'qrcode.png');
         $profilePhotoUrl = "https://ui-avatars.com/api/?name=" . $this->first_name . "+" . $this->last_name . "&color=7F9CF5&background=EBF4FF";
         return [
+            'user_id'=>$this->id,
             "name" => ($this->first_name . ' ' . $this->last_name) ?? "",
             "qrcode" => $qrcode,
             "email" => $this->email ?? "",

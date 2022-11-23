@@ -20,6 +20,7 @@ class UserDetaiApiCollection extends JsonResource
         $user = User::find(\Helper::getUserId());
         $this->profile_photo_url = "https://ui-avatars.com/api/?name=" . $user->first_name . "+" . $user->last_name . "&color=7F9CF5&background=EBF4FF";
         return [
+            'user_id'=>  $user->id,
             'first_name' => $user->first_name ?? '',
             'last_name' => $user->last_name ?? '',
             'mobile' => $user->mobile ?? '',
